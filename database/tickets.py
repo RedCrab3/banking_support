@@ -36,7 +36,7 @@ class TicketStore:
                         CHECK (ticket_number BETWEEN 100000 AND 999999),
                     customer_id TEXT NOT NULL,
                     complaint TEXT NOT NULL,
-                    status TEXT NOT NULL DEFAULT 'Unresolved'
+                    status TEXT NOT NULL DEFAULT 'Open'
                         CHECK (
                             status IN (
                                 'Open', 'In Progress', 'Closed', 'On Hold'
