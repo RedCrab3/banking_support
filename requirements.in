@@ -1,0 +1,6 @@
+#dependencies with allowed version ranges
+openai>=1.30,<3
+langgraph>=1,<2
+streamlit>=1.32,<2
+pydantic>=2.7,<3
+pytest>=8,<9
