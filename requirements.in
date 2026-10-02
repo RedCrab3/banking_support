@@ -4,3 +4,5 @@ langgraph>=1,<2
 streamlit>=1.32,<2
 pydantic>=2.7,<3
 pytest>=8,<9
+langchain>=1,<2
+langchain-openai>=1,<2
