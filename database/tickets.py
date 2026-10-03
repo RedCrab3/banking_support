@@ -138,6 +138,22 @@ class TicketStore:
             ).fetchone()
 
             return dict(row) if row else None
+        
+    def list_tickets(self, customer_id):
+        customer_id = self.require_text(customer_id, "customer_id")
+
+        with self.connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT ticket_number, complaint, status, created_at
+                FROM support_tickets
+                WHERE customer_id = ?
+                ORDER BY created_at DESC, ticket_number DESC
+                """,
+                (customer_id,),
+            ).fetchall()
+
+            return [dict(row) for row in rows]
 
 
 if __name__ == "__main__":
