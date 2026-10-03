@@ -6,7 +6,18 @@ from agents.query import build_query_agent
 from database.tickets import TicketStore
 from graph.nodes import build_nodes
 from graph.state import SupportInput, SupportState
+import json
 
+def conversation_config(customer_id: str, conversation_id: str):
+    customer_id = TicketStore.require_text(customer_id, "customer_id")
+    conversation_id = TicketStore.require_text(
+        conversation_id, "conversation_id"
+    )
+
+    # Scope each conversation to its customer.
+    thread_id = json.dumps([customer_id, conversation_id])
+
+    return {"configurable": {"thread_id": thread_id}}
 
 def build_workflow(
     store: TicketStore,
@@ -14,6 +25,7 @@ def build_workflow(
     classifier_agent=None,
     feedback_agent=None,
     query_agent=None,
+    checkpointer=None,
 ):
     # Inject stub agents in tests to avoid live API calls.
     if classifier_agent is None:
@@ -58,4 +70,4 @@ def build_workflow(
     builder.add_edge("feedback", END)
     builder.add_edge("query", END)
 
-    return builder.compile()
+    return builder.compile(checkpointer=checkpointer)

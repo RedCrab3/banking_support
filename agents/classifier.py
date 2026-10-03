@@ -41,13 +41,15 @@ A failed-service statement counts even without angry language.
 query:
 A request for information, including ticket-status questions.
 Greetings and unrelated messages also use query; the downstream
-handler will clarify what support is needed.
+handler will clarify what support is needed. 
 
 Priority rules:
 1. An explicit request to check an existing ticket's status is query,
    even when accompanied by frustration or appreciation.
 2. Otherwise, an unresolved complaint takes priority over praise.
 3. A general information question without a complaint is query.
+4. Follow-up questions about resolution or progress, such as
+   "Is it resolved yet?" or "Any update on that?", are query.
 
 Examples:
 "Thanks for fixing my login issue." -> positive_feedback
@@ -55,6 +57,8 @@ Examples:
 "What is the status of ticket 650932?" -> query
 "Thanks, but my card still hasn't arrived." -> negative_feedback
 "I'm frustrated. Is ticket 650932 resolved yet?" -> query
+"Is it resolved yet?" -> query
+"Any update on the complaint I just raised?" -> query
 
 Return the Classification structured response with a short reason.
 Do not answer the customer or create or retrieve tickets.

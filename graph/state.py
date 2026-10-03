@@ -19,3 +19,4 @@ class SupportState(SupportInput, total=False):
     extraction: dict | None
     error: dict | None
     trace: list[dict]
+    recent_ticket_number: int | None

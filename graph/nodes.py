@@ -34,6 +34,7 @@ def build_nodes(
     query_agent,
 ):
     def initialize(state):
+        # Validate only the required string inputs.
         values = {
             name: store.require_text(state.get(name), name)
             for name in [
@@ -46,6 +47,8 @@ def build_nodes(
 
         return {
             **values,
+            # Preserve memory while resetting this submission's outputs.
+            "recent_ticket_number": state.get("recent_ticket_number"),
             "category": "",
             "classification_reason": "",
             "response": "",
@@ -111,6 +114,11 @@ def build_nodes(
             return {
                 **result,
                 "outcome": outcome,
+                "recent_ticket_number": (
+                    ticket["ticket_number"]
+                    if ticket
+                    else state.get("recent_ticket_number")
+                ),
                 "trace": state["trace"] + [
                     {
                         "node": "feedback",
@@ -139,16 +147,28 @@ def build_nodes(
                 store,
                 customer_id=state["customer_id"],
                 message=state["message"],
+                recent_ticket_number=state.get("recent_ticket_number"),
             )
 
+            ticket = result["ticket"]
+
             return {
-                **result,
+                "response": result["response"],
+                "ticket": ticket,
+                "outcome": result["outcome"],
+                "extraction": result["extraction"],
+                "recent_ticket_number": (
+                    ticket["ticket_number"]
+                    if ticket
+                    else state.get("recent_ticket_number")
+                ),
                 "trace": state["trace"] + [
                     {
                         "node": "query",
                         "status": "success",
                         "outcome": result["outcome"],
                         "extraction": result["extraction"],
+                        "used_memory": result["used_memory"],
                     }
                 ],
             }
