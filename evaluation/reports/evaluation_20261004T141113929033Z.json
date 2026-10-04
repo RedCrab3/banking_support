@@ -1,0 +1,926 @@
+{
+  "started_at": "2026-10-04T14:11:13.929033+00:00",
+  "scope": "Single-turn functional workflow evaluation",
+  "configured_model": "gpt-4o-mini",
+  "planned_cases": 17,
+  "dataset_sha256": "70eb6544120bf83d9c5729b8101a1043961b70c18605abbdf4d550dfe19df3f5",
+  "prompt_sha256": {
+    "classifier": "1c2007ca9699db3ee5f1c32d725f75af9a43aa06ef59778181ed41aacb69568d",
+    "feedback": "ff3f8268ae47954264f4583945cc5a440d9e062beacd664d3d31e5140bcfd371",
+    "query": "074c8f92da93cef2fdffe1eb56f08fb249621901dbbc538214e61274e10a83d6"
+  },
+  "versions": {
+    "langchain": "1.4.3",
+    "langchain-openai": "1.6.7",
+    "langgraph": "1.2.12",
+    "openai": "2.54.0"
+  },
+  "cases": [
+    {
+      "id": "P01",
+      "message": "Your support team was incredibly helpful today.",
+      "expected_category": "positive_feedback",
+      "expected_outcome": "feedback_acknowledged",
+      "elapsed_seconds": 9.663,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "Your support team was incredibly helpful today.",
+        "request_id": "eval-P01",
+        "category": "positive_feedback",
+        "classification_reason": "The customer expresses appreciation for the support team's help.",
+        "response": "Evaluation Customer, Thank you for your kind words! We're glad to hear that our support team was able to assist you.",
+        "ticket": null,
+        "outcome": "feedback_acknowledged",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "positive_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "feedback_acknowledged",
+            "ticket_number": null,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "P02",
+      "message": "The mobile banking experience has been excellent.",
+      "expected_category": "positive_feedback",
+      "expected_outcome": "feedback_acknowledged",
+      "elapsed_seconds": 2.172,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "The mobile banking experience has been excellent.",
+        "request_id": "eval-P02",
+        "category": "positive_feedback",
+        "classification_reason": "The customer expresses satisfaction with the mobile banking experience.",
+        "response": "Evaluation Customer, Thank you for your kind words! We're thrilled to hear that you are enjoying the mobile banking experience.",
+        "ticket": null,
+        "outcome": "feedback_acknowledged",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "positive_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "feedback_acknowledged",
+            "ticket_number": null,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "P03",
+      "message": "I appreciate how quickly you sorted out the payment issue.",
+      "expected_category": "positive_feedback",
+      "expected_outcome": "feedback_acknowledged",
+      "elapsed_seconds": 2.06,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "I appreciate how quickly you sorted out the payment issue.",
+        "request_id": "eval-P03",
+        "category": "positive_feedback",
+        "classification_reason": "The customer expresses appreciation for the quick resolution of a payment issue.",
+        "response": "Evaluation Customer, Thank you for your kind words! We're glad to hear you appreciated our quick assistance.",
+        "ticket": null,
+        "outcome": "feedback_acknowledged",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "positive_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "feedback_acknowledged",
+            "ticket_number": null,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "P04",
+      "message": "Everything works now. Thanks for your patience!",
+      "expected_category": "positive_feedback",
+      "expected_outcome": "feedback_acknowledged",
+      "elapsed_seconds": 2.166,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "Everything works now. Thanks for your patience!",
+        "request_id": "eval-P04",
+        "category": "positive_feedback",
+        "classification_reason": "The customer expresses satisfaction and appreciation for the service.",
+        "response": "Evaluation Customer, Thank you for your kind words! We're glad everything is working well for you.",
+        "ticket": null,
+        "outcome": "feedback_acknowledged",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "positive_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "feedback_acknowledged",
+            "ticket_number": null,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "P05",
+      "message": "The branch staff explained everything clearly. Great service.",
+      "expected_category": "positive_feedback",
+      "expected_outcome": "feedback_acknowledged",
+      "elapsed_seconds": 2.237,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "The branch staff explained everything clearly. Great service.",
+        "request_id": "eval-P05",
+        "category": "positive_feedback",
+        "classification_reason": "The customer expresses satisfaction and praise for the clear explanation and great service provided by the branch staff.",
+        "response": "Evaluation Customer, Thank you for your kind words! We're thrilled to hear that our branch staff provided you with clear explanations and great service.",
+        "ticket": null,
+        "outcome": "feedback_acknowledged",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "positive_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "feedback_acknowledged",
+            "ticket_number": null,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "N01",
+      "message": "The ATM deducted money but did not dispense any cash.",
+      "expected_category": "negative_feedback",
+      "expected_outcome": "complaint_recorded",
+      "elapsed_seconds": 2.282,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "The ATM deducted money but did not dispense any cash.",
+        "request_id": "eval-N01",
+        "category": "negative_feedback",
+        "classification_reason": "The customer is reporting a problem where the ATM deducted money but did not dispense cash, indicating dissatisfaction with the service.",
+        "response": "Evaluation Customer, I'm sorry to hear about the issue you experienced with the ATM. We understand how frustrating this can be. Your complaint is recorded under ticket #305763. Current status: Open.",
+        "ticket": {
+          "ticket_number": 305763,
+          "customer_id": "customer-001",
+          "complaint": "The ATM deducted money but did not dispense any cash.",
+          "status": "Open",
+          "request_id": "eval-N01",
+          "created_at": "2026-10-04T14:11:33.634Z"
+        },
+        "outcome": "complaint_recorded",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "negative_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "complaint_recorded",
+            "ticket_number": 305763,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": 305763
+      }
+    },
+    {
+      "id": "N02",
+      "message": "I was charged twice for the same transaction.",
+      "expected_category": "negative_feedback",
+      "expected_outcome": "complaint_recorded",
+      "elapsed_seconds": 2.375,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "I was charged twice for the same transaction.",
+        "request_id": "eval-N02",
+        "category": "negative_feedback",
+        "classification_reason": "The customer is reporting a double charge, indicating dissatisfaction with the banking service.",
+        "response": "Evaluation Customer, I'm sorry to hear about the double charge you experienced. We understand how frustrating this can be. Your complaint is recorded under ticket #542586. Current status: Open.",
+        "ticket": {
+          "ticket_number": 542586,
+          "customer_id": "customer-001",
+          "complaint": "I was charged twice for the same transaction.",
+          "status": "Open",
+          "request_id": "eval-N02",
+          "created_at": "2026-10-04T14:11:36.088Z"
+        },
+        "outcome": "complaint_recorded",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "negative_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "complaint_recorded",
+            "ticket_number": 542586,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": 542586
+      }
+    },
+    {
+      "id": "N03",
+      "message": "My banking app keeps crashing when I try to log in.",
+      "expected_category": "negative_feedback",
+      "expected_outcome": "complaint_recorded",
+      "elapsed_seconds": 2.261,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "My banking app keeps crashing when I try to log in.",
+        "request_id": "eval-N03",
+        "category": "negative_feedback",
+        "classification_reason": "The customer is experiencing a problem with the banking app crashing during login.",
+        "response": "Evaluation Customer, I'm sorry to hear that you're experiencing issues with the banking app crashing during login. Your complaint is recorded under ticket #161926. Current status: Open.",
+        "ticket": {
+          "ticket_number": 161926,
+          "customer_id": "customer-001",
+          "complaint": "My banking app keeps crashing when I try to log in.",
+          "status": "Open",
+          "request_id": "eval-N03",
+          "created_at": "2026-10-04T14:11:38.345Z"
+        },
+        "outcome": "complaint_recorded",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "negative_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "complaint_recorded",
+            "ticket_number": 161926,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": 161926
+      }
+    },
+    {
+      "id": "N04",
+      "message": "The staff were polite, but my transfer is still stuck.",
+      "expected_category": "negative_feedback",
+      "expected_outcome": "complaint_recorded",
+      "elapsed_seconds": 2.493,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "The staff were polite, but my transfer is still stuck.",
+        "request_id": "eval-N04",
+        "category": "negative_feedback",
+        "classification_reason": "The customer expresses dissatisfaction as their transfer is unresolved despite polite service.",
+        "response": "Evaluation Customer, I'm sorry to hear that your transfer is still stuck, and I appreciate you sharing your experience. Your complaint is recorded under ticket #344903. Current status: Open.",
+        "ticket": {
+          "ticket_number": 344903,
+          "customer_id": "customer-001",
+          "complaint": "The staff were polite, but my transfer is still stuck.",
+          "status": "Open",
+          "request_id": "eval-N04",
+          "created_at": "2026-10-04T14:11:40.830Z"
+        },
+        "outcome": "complaint_recorded",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "negative_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "complaint_recorded",
+            "ticket_number": 344903,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": 344903
+      }
+    },
+    {
+      "id": "N05",
+      "message": "Why have you deducted a fee I never agreed to?",
+      "expected_category": "negative_feedback",
+      "expected_outcome": "complaint_recorded",
+      "elapsed_seconds": 2.376,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "Why have you deducted a fee I never agreed to?",
+        "request_id": "eval-N05",
+        "category": "negative_feedback",
+        "classification_reason": "The customer is expressing dissatisfaction regarding an unexpected fee deduction.",
+        "response": "Evaluation Customer, I'm sorry to hear about the unexpected fee deduction. We understand how frustrating this can be. Your complaint is recorded under ticket #635240. Current status: Open.",
+        "ticket": {
+          "ticket_number": 635240,
+          "customer_id": "customer-001",
+          "complaint": "Why have you deducted a fee I never agreed to?",
+          "status": "Open",
+          "request_id": "eval-N05",
+          "created_at": "2026-10-04T14:11:43.198Z"
+        },
+        "outcome": "complaint_recorded",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": null,
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "negative_feedback"
+          },
+          {
+            "node": "feedback",
+            "status": "success",
+            "outcome": "complaint_recorded",
+            "ticket_number": 635240,
+            "generation_error": null
+          }
+        ],
+        "recent_ticket_number": 635240
+      }
+    },
+    {
+      "id": "Q01",
+      "message": "Please tell me the progress of complaint #484852.",
+      "expected_category": "query",
+      "expected_outcome": "ticket_found",
+      "elapsed_seconds": 2.325,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "Please tell me the progress of complaint #484852.",
+        "request_id": "eval-Q01",
+        "category": "query",
+        "classification_reason": "The message is a request for information regarding the progress of a specific complaint.",
+        "response": "Your ticket #484852 is currently marked as: In Progress.",
+        "ticket": {
+          "ticket_number": 484852,
+          "customer_id": "customer-001",
+          "complaint": "Evaluation seed complaint.",
+          "status": "In Progress",
+          "request_id": "seed-own",
+          "created_at": "2026-10-04T14:11:44.494Z"
+        },
+        "outcome": "ticket_found",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": {
+          "is_status_query": true,
+          "ticket_numbers": [
+            484852
+          ],
+          "refers_to_recent_ticket": false
+        },
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "query"
+          },
+          {
+            "node": "query",
+            "status": "success",
+            "outcome": "ticket_found",
+            "extraction": {
+              "is_status_query": true,
+              "ticket_numbers": [
+                484852
+              ],
+              "refers_to_recent_ticket": false
+            },
+            "used_memory": false
+          }
+        ],
+        "recent_ticket_number": 484852
+      }
+    },
+    {
+      "id": "Q02",
+      "message": "This is taking too long. Is ticket 700100 resolved?",
+      "expected_category": "query",
+      "expected_outcome": "ticket_found",
+      "elapsed_seconds": 2.327,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "This is taking too long. Is ticket 700100 resolved?",
+        "request_id": "eval-Q02",
+        "category": "query",
+        "classification_reason": "The customer is inquiring about the resolution status of ticket 700100.",
+        "response": "Your ticket #700100 is currently marked as: In Progress.",
+        "ticket": {
+          "ticket_number": 700100,
+          "customer_id": "customer-001",
+          "complaint": "Evaluation seed complaint.",
+          "status": "In Progress",
+          "request_id": "seed-own",
+          "created_at": "2026-10-04T14:11:46.865Z"
+        },
+        "outcome": "ticket_found",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": {
+          "is_status_query": true,
+          "ticket_numbers": [
+            700100
+          ],
+          "refers_to_recent_ticket": false
+        },
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "query"
+          },
+          {
+            "node": "query",
+            "status": "success",
+            "outcome": "ticket_found",
+            "extraction": {
+              "is_status_query": true,
+              "ticket_numbers": [
+                700100
+              ],
+              "refers_to_recent_ticket": false
+            },
+            "used_memory": false
+          }
+        ],
+        "recent_ticket_number": 700100
+      }
+    },
+    {
+      "id": "Q03",
+      "message": "Check the status of ticket 100000.",
+      "expected_category": "query",
+      "expected_outcome": "ticket_not_found",
+      "elapsed_seconds": 2.463,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "Check the status of ticket 100000.",
+        "request_id": "eval-Q03",
+        "category": "query",
+        "classification_reason": "The message is an explicit request to check the status of an existing ticket.",
+        "response": "I couldn't find ticket #100000 for your customer account. Please check the number.",
+        "ticket": null,
+        "outcome": "ticket_not_found",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": {
+          "is_status_query": true,
+          "ticket_numbers": [
+            100000
+          ],
+          "refers_to_recent_ticket": false
+        },
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "query"
+          },
+          {
+            "node": "query",
+            "status": "success",
+            "outcome": "ticket_not_found",
+            "extraction": {
+              "is_status_query": true,
+              "ticket_numbers": [
+                100000
+              ],
+              "refers_to_recent_ticket": false
+            },
+            "used_memory": false
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "Q04",
+      "message": "What is happening with ticket 721551?",
+      "expected_category": "query",
+      "expected_outcome": "ticket_not_found",
+      "elapsed_seconds": 2.867,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "What is happening with ticket 721551?",
+        "request_id": "eval-Q04",
+        "category": "query",
+        "classification_reason": "The message is asking for an update on the status of an existing ticket.",
+        "response": "I couldn't find ticket #721551 for your customer account. Please check the number.",
+        "ticket": null,
+        "outcome": "ticket_not_found",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": {
+          "is_status_query": true,
+          "ticket_numbers": [
+            721551
+          ],
+          "refers_to_recent_ticket": false
+        },
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "query"
+          },
+          {
+            "node": "query",
+            "status": "success",
+            "outcome": "ticket_not_found",
+            "extraction": {
+              "is_status_query": true,
+              "ticket_numbers": [
+                721551
+              ],
+              "refers_to_recent_ticket": false
+            },
+            "used_memory": false
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "Q05",
+      "message": "Can you check my ticket status?",
+      "expected_category": "query",
+      "expected_outcome": "missing_ticket_number",
+      "elapsed_seconds": 2.298,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "Can you check my ticket status?",
+        "request_id": "eval-Q05",
+        "category": "query",
+        "classification_reason": "The customer is explicitly requesting to check the status of their ticket.",
+        "response": "Please provide your six-digit support-ticket number.",
+        "ticket": null,
+        "outcome": "missing_ticket_number",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": {
+          "is_status_query": true,
+          "ticket_numbers": [],
+          "refers_to_recent_ticket": false
+        },
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "query"
+          },
+          {
+            "node": "query",
+            "status": "success",
+            "outcome": "missing_ticket_number",
+            "extraction": {
+              "is_status_query": true,
+              "ticket_numbers": [],
+              "refers_to_recent_ticket": false
+            },
+            "used_memory": false
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "Q06",
+      "message": "Check tickets 392594 and 171025.",
+      "expected_category": "query",
+      "expected_outcome": "multiple_ticket_numbers",
+      "elapsed_seconds": 2.119,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "Check tickets 392594 and 171025.",
+        "request_id": "eval-Q06",
+        "category": "query",
+        "classification_reason": "The message contains an explicit request to check the status of existing tickets.",
+        "response": "You mentioned multiple tickets. Please specify one six-digit ticket number to check.",
+        "ticket": null,
+        "outcome": "multiple_ticket_numbers",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": {
+          "is_status_query": true,
+          "ticket_numbers": [
+            392594,
+            171025
+          ],
+          "refers_to_recent_ticket": false
+        },
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "query"
+          },
+          {
+            "node": "query",
+            "status": "success",
+            "outcome": "multiple_ticket_numbers",
+            "extraction": {
+              "is_status_query": true,
+              "ticket_numbers": [
+                392594,
+                171025
+              ],
+              "refers_to_recent_ticket": false
+            },
+            "used_memory": false
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    },
+    {
+      "id": "Q07",
+      "message": "What documents are needed to open a savings account?",
+      "expected_category": "query",
+      "expected_outcome": "unsupported_query",
+      "elapsed_seconds": 2.153,
+      "checks": {
+        "classification_ok": true,
+        "routing_ok": true,
+        "database_ok": true,
+        "response_facts_ok": true,
+        "end_to_end_ok": true
+      },
+      "result": {
+        "customer_id": "customer-001",
+        "customer_name": "Evaluation Customer",
+        "message": "What documents are needed to open a savings account?",
+        "request_id": "eval-Q07",
+        "category": "query",
+        "classification_reason": "The message is a request for information about the documents required to open a savings account.",
+        "response": "I can help with banking feedback, complaints, and support-ticket status. To check a ticket, please provide its six-digit number.",
+        "ticket": null,
+        "outcome": "unsupported_query",
+        "used_fallback": false,
+        "generation_error": null,
+        "extraction": {
+          "is_status_query": false,
+          "ticket_numbers": [],
+          "refers_to_recent_ticket": false
+        },
+        "error": null,
+        "trace": [
+          {
+            "node": "classifier",
+            "status": "success",
+            "category": "query"
+          },
+          {
+            "node": "query",
+            "status": "success",
+            "outcome": "unsupported_query",
+            "extraction": {
+              "is_status_query": false,
+              "ticket_numbers": [],
+              "refers_to_recent_ticket": false
+            },
+            "used_memory": false
+          }
+        ],
+        "recent_ticket_number": null
+      }
+    }
+  ],
+  "summary": {
+    "classification_ok": {
+      "passed": 17,
+      "total": 17,
+      "percentage": 100.0
+    },
+    "routing_ok": {
+      "passed": 17,
+      "total": 17,
+      "percentage": 100.0
+    },
+    "database_ok": {
+      "passed": 17,
+      "total": 17,
+      "percentage": 100.0
+    },
+    "response_facts_ok": {
+      "passed": 17,
+      "total": 17,
+      "percentage": 100.0
+    },
+    "end_to_end_ok": {
+      "passed": 17,
+      "total": 17,
+      "percentage": 100.0
+    },
+    "error_count": 0,
+    "fallback_count": 0,
+    "mean_latency_seconds": 2.74
+  },
+  "completed": true
+}
