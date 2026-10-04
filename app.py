@@ -353,6 +353,11 @@ with chat_tab:
 with tickets_tab:
     st.subheader("Your support tickets")
 
+    notice = st.session_state.pop("status_update_notice", None)
+
+    if notice and notice["customer_id"] == customer_id:
+        st.success(notice["message"])
+
     if tickets:
         st.dataframe(
             tickets,
@@ -373,6 +378,89 @@ with tickets_tab:
 
     if st.button("Refresh saved data"):
         st.rerun()
+
+    if tickets:
+        ticket_map = {
+            ticket["ticket_number"]: ticket
+            for ticket in tickets
+        }
+
+        with st.expander("Demo support controls"):
+            st.caption(
+                "Simulates a support operator updating a ticket. "
+                "These controls are not an authenticated staff portal."
+            )
+
+            number = st.selectbox(
+                "Ticket to update",
+                options=list(ticket_map),
+                format_func=lambda value: (
+                    f"#{value} · {ticket_map[value]['status']}"
+                ),
+                key=f"status_ticket_{customer_id}",
+            )
+
+            selected = ticket_map[number]
+            statuses = ["Open", "In Progress", "On Hold", "Closed"]
+
+            with st.form(
+                f"status_form_{customer_id}_{number}_{selected['status']}"
+            ):
+                st.write("Complaint:", selected["complaint"])
+                st.write("Current status:", selected["status"])
+
+                new_status = st.selectbox(
+                    "New status",
+                    options=statuses,
+                    index=statuses.index(selected["status"]),
+                )
+
+                submitted = st.form_submit_button("Update status")
+
+            if submitted:
+                try:
+                    updated = store.update_status(
+                        ticket_number=number,
+                        customer_id=customer_id,
+                        new_status=new_status,
+                        operator="demo-support",
+                        expected_status=selected["status"],
+                    )
+                except ValueError as exc:
+                    st.error(str(exc))
+                except Exception as exc:
+                    st.error(
+                        f"Status update failed: {type(exc).__name__}"
+                    )
+                else:
+                    st.session_state.status_update_notice = {
+                        "customer_id": customer_id,
+                        "message": (
+                            f"Ticket #{number} is marked as "
+                            f"{updated['status']}."
+                        ),
+                    }
+                    st.rerun()
+
+            st.markdown("**Status change history**")
+
+            changes = store.list_status_history(number, customer_id)
+
+            if changes:
+                st.dataframe(
+                    changes,
+                    hide_index=True,
+                    use_container_width=True,
+                    column_config={
+                        "change_id": "Change",
+                        "previous_status": "Previous status",
+                        "new_status": "New status",
+                        "operator": "Demo operator",
+                        "changed_at": "Changed at (UTC)",
+                    },
+                )
+            else:
+                st.caption("No status changes recorded yet.")
 
 
 with activity_tab:

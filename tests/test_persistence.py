@@ -149,3 +149,43 @@ def test_retry_attempts_keep_same_request_id(tmp_path):
     assert len(attempts) == 2
     assert attempts[0]["request_id"] == attempts[1]["request_id"]
     
+def test_attempt_update_is_saved_and_customer_scoped(tmp_path):
+    history = HistoryStore(tmp_path / "history.db")
+    conversation_id = history.create_conversation("customer-001")
+
+    attempt_id = history.record_attempt(
+        conversation_id,
+        request(),
+        {"outcome": "processing"},
+        0.0,
+    )
+
+    with pytest.raises(ValueError):
+        history.update_attempt(
+            "customer-002",
+            conversation_id,
+            attempt_id,
+            {"outcome": "error"},
+            1.0,
+        )
+
+    final_result = {
+        "outcome": "complaint_recorded",
+        "response": "Complaint recorded.",
+    }
+
+    history.update_attempt(
+        "customer-001",
+        conversation_id,
+        attempt_id,
+        final_result,
+        2.5,
+    )
+
+    attempts = history.list_attempts(
+        "customer-001", conversation_id
+    )
+
+    assert len(attempts) == 1
+    assert attempts[0]["result"] == final_result
+    assert attempts[0]["elapsed_seconds"] == 2.5

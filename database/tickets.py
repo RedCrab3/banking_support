@@ -49,6 +49,18 @@ class TicketStore:
                     UNIQUE (customer_id, request_id)
                 )
             """)
+            connection.execute("""
+                CREATE TABLE IF NOT EXISTS ticket_status_history (
+                    change_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ticket_number INTEGER NOT NULL,
+                    previous_status TEXT NOT NULL,
+                    new_status TEXT NOT NULL,
+                    operator TEXT NOT NULL,
+                    changed_at TEXT NOT NULL DEFAULT (
+                        strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+                    )
+                )
+            """)
 
     @staticmethod
     def require_text(value, name):
@@ -151,6 +163,127 @@ class TicketStore:
                 ORDER BY created_at DESC, ticket_number DESC
                 """,
                 (customer_id,),
+            ).fetchall()
+
+            return [dict(row) for row in rows]
+        
+    def update_status(
+        self,
+        ticket_number,
+        customer_id,
+        new_status,
+        operator,
+        expected_status=None,
+    ):
+        customer_id = self.require_text(customer_id, "customer_id")
+        operator = self.require_text(operator, "operator")
+
+        allowed = {"Open", "In Progress", "Closed", "On Hold"}
+
+        if not isinstance(new_status, str) or new_status not in allowed:
+            raise ValueError("Invalid ticket status.")
+
+        if expected_status is not None:
+            if (
+                not isinstance(expected_status, str)
+                or expected_status not in allowed
+            ):
+                raise ValueError("Invalid expected status.")
+
+        if (
+            type(ticket_number) is not int
+            or not 100000 <= ticket_number <= 999999
+        ):
+            raise ValueError("ticket_number must be a six-digit integer.")
+
+        with self.connect() as connection:
+            connection.execute("BEGIN IMMEDIATE")
+
+            row = connection.execute(
+                """
+                SELECT * FROM support_tickets
+                WHERE ticket_number = ? AND customer_id = ?
+                """,
+                (ticket_number, customer_id),
+            ).fetchone()
+
+            if row is None:
+                raise ValueError("Ticket not found for this customer.")
+
+            previous_status = row["status"]
+
+            if (
+                expected_status is not None
+                and previous_status != expected_status
+            ):
+                raise ValueError(
+                    "Ticket status changed since the form was loaded. "
+                    "Refresh the page and try again."
+                )
+
+            # Selecting the existing status is a no-op.
+            if previous_status == new_status:
+                return dict(row)
+
+            connection.execute(
+                """
+                UPDATE support_tickets
+                SET status = ?
+                WHERE ticket_number = ? AND customer_id = ?
+                """,
+                (new_status, ticket_number, customer_id),
+            )
+
+            connection.execute(
+                """
+                INSERT INTO ticket_status_history (
+                    ticket_number, previous_status, new_status, operator
+                )
+                VALUES (?, ?, ?, ?)
+                """,
+                (
+                    ticket_number,
+                    previous_status,
+                    new_status,
+                    operator,
+                ),
+            )
+
+            updated = connection.execute(
+                """
+                SELECT * FROM support_tickets
+                WHERE ticket_number = ? AND customer_id = ?
+                """,
+                (ticket_number, customer_id),
+            ).fetchone()
+
+            return dict(updated)
+
+    def list_status_history(self, ticket_number, customer_id):
+        customer_id = self.require_text(customer_id, "customer_id")
+
+        if (
+            type(ticket_number) is not int
+            or not 100000 <= ticket_number <= 999999
+        ):
+            raise ValueError("ticket_number must be a six-digit integer.")
+
+        with self.connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT
+                    h.change_id,
+                    h.previous_status,
+                    h.new_status,
+                    h.operator,
+                    h.changed_at
+                FROM ticket_status_history AS h
+                JOIN support_tickets AS t
+                    ON t.ticket_number = h.ticket_number
+                WHERE h.ticket_number = ? AND t.customer_id = ?
+                ORDER BY h.change_id
+                """,
+                (ticket_number, customer_id),
             ).fetchall()
 
             return [dict(row) for row in rows]
