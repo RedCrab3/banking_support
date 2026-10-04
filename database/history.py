@@ -177,3 +177,41 @@ class HistoryStore:
             attempts.append(item)
 
         return attempts
+    
+    def update_attempt(
+        self,
+        customer_id,
+        conversation_id,
+        attempt_id,
+        result,
+        elapsed_seconds,
+    ):
+        customer_id = self.store.require_text(
+            customer_id, "customer_id"
+        )
+        conversation_id = self.store.require_text(
+            conversation_id, "conversation_id"
+        )
+
+        with self.store.connect() as connection:
+            cursor = connection.execute(
+                """
+                UPDATE execution_history
+                SET result_json = ?, elapsed_seconds = ?
+                WHERE customer_id = ?
+                  AND conversation_id = ?
+                  AND attempt_id = ?
+                """,
+                (
+                    json.dumps(result),
+                    elapsed_seconds,
+                    customer_id,
+                    conversation_id,
+                    attempt_id,
+                ),
+            )
+
+            if cursor.rowcount != 1:
+                raise ValueError(
+                    "Execution attempt does not exist for this conversation."
+                )

@@ -148,3 +148,4 @@ def test_retry_attempts_keep_same_request_id(tmp_path):
     assert first_id != second_id
     assert len(attempts) == 2
     assert attempts[0]["request_id"] == attempts[1]["request_id"]
+    
