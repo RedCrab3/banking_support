@@ -7,6 +7,7 @@ from database.history import HistoryStore
 from database.tickets import TicketStore
 from graph.persistence import persistent_workflow
 from graph.workflow import conversation_config
+from ui.evaluation import render_evaluation
 
 
 st.set_page_config(
@@ -274,12 +275,12 @@ col1.metric("Customer", customer_name)
 col2.metric("Active tickets", active_count)
 col3.metric("Closed tickets", closed_count)
 
-chat_tab, tickets_tab, activity_tab = st.tabs([
+chat_tab, tickets_tab, activity_tab, evaluation_tab = st.tabs([
     "Chat",
     "My tickets",
     "Execution history",
+    "Evaluation",
 ])
-
 
 with chat_tab:
     if not attempts:
@@ -500,3 +501,6 @@ with activity_tab:
         "Conversations, execution history, and ticket context "
         "are stored in SQLite."
     )
+    
+with evaluation_tab:
+    render_evaluation()
