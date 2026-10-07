@@ -8,6 +8,7 @@ from database.tickets import TicketStore
 from graph.persistence import persistent_workflow
 from graph.workflow import conversation_config
 from ui.evaluation import render_evaluation
+from ui.greetings import should_greet
 
 
 st.set_page_config(
@@ -35,8 +36,19 @@ def save_completed_attempt(history, completed):
 
 
 def process_request(store, history, conversation_id, request):
-    # Save the original request before making model calls.
+    # Determine greeting behaviour before saving the new attempt.
     try:
+        previous_attempts = history.list_attempts(
+            request["customer_id"],
+            conversation_id,
+        )
+
+        request = {
+            **request,
+            "show_greeting": should_greet(previous_attempts),
+        }
+
+        # Save the original request before making model calls.
         attempt_id = history.record_attempt(
             conversation_id,
             request,
@@ -206,7 +218,7 @@ with st.sidebar:
     ]
     labels = {
         row["conversation_id"]: (
-            f"{row['created_at']} · "
+            f"{row['title']} · {row['created_at'][:16]} UTC · "
             f"{row['conversation_id'][:8]}"
         )
         for row in conversations

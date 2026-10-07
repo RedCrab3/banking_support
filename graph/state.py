@@ -1,4 +1,5 @@
 from typing import TypedDict
+from typing_extensions import NotRequired
 
 
 class SupportInput(TypedDict):
@@ -6,6 +7,7 @@ class SupportInput(TypedDict):
     customer_name: str
     message: str
     request_id: str
+    show_greeting: NotRequired[bool]
 
 
 class SupportState(SupportInput, total=False):

@@ -59,6 +59,7 @@ def build_nodes(
             "extraction": None,
             "error": None,
             "trace": [],
+            "show_greeting": state.get("show_greeting", True),
         }
 
     def classify(state):
@@ -101,6 +102,7 @@ def build_nodes(
                 customer_name=state["customer_name"],
                 message=state["message"],
                 request_id=state["request_id"],
+                show_greeting=state["show_greeting"],
             )
 
             ticket = result["ticket"]

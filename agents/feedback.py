@@ -61,6 +61,7 @@ def handle_feedback(
     customer_name: str,
     message: str,
     request_id: str,
+    show_greeting: bool = True,
 ):
     if category not in {"positive_feedback", "negative_feedback"}:
         raise ValueError("Feedback handler requires a feedback category.")
@@ -117,7 +118,11 @@ def handle_feedback(
             else "We're sorry for the inconvenience you've experienced."
         )
 
-    response = f"{customer_name}, {acknowledgement}"
+    response = (
+        f"Hi {customer_name}. {acknowledgement}"
+        if show_greeting
+        else acknowledgement
+    )
 
     if ticket:
         response += (

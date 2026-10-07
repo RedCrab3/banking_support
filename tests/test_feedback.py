@@ -1,5 +1,6 @@
 from agents.feedback import FeedbackText, handle_feedback
 from database.tickets import TicketStore
+import pytest
 
 
 class StubAgent:
@@ -73,3 +74,21 @@ def test_model_failure_still_confirms_saved_ticket(tmp_path):
         ticket["ticket_number"], "customer-001"
     ) == ticket
     assert str(ticket["ticket_number"]) in result["response"]
+    
+@pytest.mark.parametrize("show_greeting", [True, False])
+def test_greeting_is_controlled_by_flag(tmp_path, show_greeting):
+    store = TicketStore(tmp_path / "greeting.db")
+
+    result = handle_feedback(
+        StubAgent(),
+        store,
+        category="positive_feedback",
+        customer_id="customer-001",
+        customer_name="Divya",
+        message="Thanks for your help.",
+        request_id="greeting-001",
+        show_greeting=show_greeting,
+    )
+
+    assert result["response"].startswith("Hi Divya.") == show_greeting
+    assert "Thank you for sharing your feedback." in result["response"]
