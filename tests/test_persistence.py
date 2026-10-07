@@ -189,3 +189,24 @@ def test_attempt_update_is_saved_and_customer_scoped(tmp_path):
     assert len(attempts) == 1
     assert attempts[0]["result"] == final_result
     assert attempts[0]["elapsed_seconds"] == 2.5
+    
+def test_first_message_sets_title_and_follow_up_preserves_it(tmp_path):
+    history = HistoryStore(tmp_path / "history.db")
+    conversation_id = history.create_conversation("customer-001")
+
+    first = request("My replacement debit card has not arrived.")
+    history.record_attempt(
+        conversation_id,
+        first,
+        {"outcome": "complaint_recorded"},
+        1.0,
+    )
+
+    follow_up = request("Is it resolved yet?")
+    follow_up["request_id"] = "request-002"
+    history.record_attempt(
+        conversation_id,
+        follow_up,
+        {"outcome": "ticket_found"},
+        1.0,
+    )

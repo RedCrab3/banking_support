@@ -125,6 +125,31 @@ class HistoryStore:
                 raise ValueError(
                     "Conversation does not exist for this customer."
                 )
+            has_attempt = connection.execute(
+                """
+                SELECT 1 FROM execution_history
+                WHERE customer_id = ? AND conversation_id = ?
+                LIMIT 1
+                """,
+                (customer_id, conversation_id),
+            ).fetchone()
+
+            if has_attempt is None:
+                message = " ".join(clean_request["message"].split())
+                title = (
+                    message
+                    if len(message) <= 15
+                    else message[:10] + "..."
+                )
+
+                connection.execute(
+                    """
+                    UPDATE conversations
+                    SET title = ?
+                    WHERE customer_id = ? AND conversation_id = ?
+                    """,
+                    (title, customer_id, conversation_id),
+                )
 
             cursor = connection.execute(
                 """
